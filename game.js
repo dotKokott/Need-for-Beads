@@ -60,7 +60,7 @@ PS.Init = function ()
 	car = new Car();
 	street = new Street();
 
-    PS.Clock(5);
+    PS.Clock(10);
 };
 
 // PS.Click (x, y, data)
