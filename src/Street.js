@@ -9,24 +9,30 @@ function Street () {
 
     this.streetData = new Array();
     this.builder.fillStraightStreet(15,5,5);
-    this.builder.curveStreet("right", 4);
-    this.builder.curveStreet("left", 4);
 };
 
 Street.prototype.update = function() {
-	this.streetData.splice(0,0, this.builder.getNextStreetPart());
+	var nextStreetPart = this.builder.getNextStreetPart();
+    if(typeof nextStreetPart == "undefined") alert("lol");
+
+    this.streetData.splice(0,0, nextStreetPart);
 	if(this.streetData.length > 16) this.streetData.pop(); //Bild voll
 
 	var startY = 15;
 	for(var i = this.streetData.length -1; i>= 0;i--)
 	{
+        if(typeof this.streetData[i] == "undefined")
+        {
+            alert(i + " " + this.streetData.length);
+        }
 		this.streetData[i].y = startY;
 		startY -= 1;
 	}
 
-    if(checkCollisionWith(car.x,car.y, "wall")) 
+    if(checkCollisionWith(car.x,car.y, "wall") || checkCollisionWith(car.x, car.y, "obstacle")) 
 	{	gameRunning = false;
-		alert("Crash!");
+		alert("Crash! Your score: " + car.score.toString());
+        PS.Init();
 	}
 };
 

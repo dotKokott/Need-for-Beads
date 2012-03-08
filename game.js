@@ -33,8 +33,15 @@ function min(num1, num2) {
 	return num1;
 }
 
+function randomToN(maxVal)
+{
+   var randVal = Math.random()*maxVal;
+   return Math.round(randVal);
+};
+
 function checkCollisionWith(x,y, collisionObjectName) {
 	if(collisionObjectName == "wall") return checkCollisionWithWall(x,y, street);
+	if(collisionObjectName == "obstacle") return checkCollisionWithObstacle(x,y, street);
 	//if(collisionObjectName == "street") return checkCollisionWithStreet(x,y,street);
 };
 
@@ -43,17 +50,27 @@ function checkCollisionWithWall(x,y, obj) {
 	{
 		return (obj.streetData[y].x == x) || (obj.streetData[y].x +obj.streetData[y].width == x);	
 	}
-	return false;
-	
+	return false;	
+};
+
+function checkCollisionWithObstacle(x,y, obj) {
+	if(y < obj.streetData.length)
+	{
+		for(var i = 0; i < obj.streetData[y].obstacles.length;i++)
+		{
+			var obstacle = obj.streetData[y].obstacles[i];
+			if(x == obstacle.x) return true;
+		}		
+	}
+	return false;	
 };
 
 PS.Init = function ()
 {
 	"use strict";
-	
 	// change to the dimensions you want
+	PS.StatusFade(false);
 	PS.GridSize (16, 16); 
-
 	PS.GridBGColor(0xC79236);
 	PS.BeadFlash(PS.ALL, PS.ALL, false);
 	PS.BeadBorderWidth (PS.ALL, PS.ALL, 0);
@@ -61,7 +78,7 @@ PS.Init = function ()
 	car = new Car();
 	street = new Street();
 	gameRunning = true;
-    PS.Clock(10);
+    PS.Clock(1);
 };
 
 // PS.Click (x, y, data)
@@ -169,14 +186,26 @@ PS.Wheel = function (dir)
 // if a timer has been activated with a call to PS.Timer()
 // It doesn't have to do anything
 
+var tickTime = 10;
+var tickCount = 0;
 PS.Tick = function ()
 {	
 	"use strict";
-	if(gameRunning)
+	if(tickCount >= tickTime)
 	{
-		PS.BeadColor(PS.ALL, PS.ALL, 0xC79236);	
-		street.update();
-		street.draw();
-		car.draw();
+		if(gameRunning)
+		{
+			PS.BeadColor(PS.ALL, PS.ALL, 0xC79236);
+			car.update();    
+			street.update();
+			street.draw();
+			car.draw();
+		}		
+		tickCount = 0;
 	}
+	else
+	{
+		tickCount++;
+	}
+
 };

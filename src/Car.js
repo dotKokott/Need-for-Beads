@@ -2,10 +2,13 @@ function Car () {
     this.x = 7;
     this.y = 13;
     this.color = 0xFF0000;
+    this.score = 0;
 };
 
 Car.prototype.update = function() {
-    
+    this.score += 2;
+
+    tickTime = 10 - parseInt(this.score / 400);
 };
 
 Car.prototype.handleKey = function(key) {	
@@ -30,4 +33,5 @@ Car.prototype.handleKey = function(key) {
 Car.prototype.draw = function() {
     PS.BeadColor(this.x, this.y, this.color);
     PS.BeadColor(this.x, this.y+1, this.color);    
+    PS.StatusText("Your score: --" + this.score.toString() + "--");
 };
