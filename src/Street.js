@@ -24,7 +24,10 @@ Street.prototype.update = function() {
 		startY -= 1;
 	}
 
-    if(checkCollisionWith(car.x,car.y, "wall")) alert("Unfall");
+    if(checkCollisionWith(car.x,car.y, "wall")) 
+	{	gameRunning = false;
+		alert("Crash!");
+	}
 };
 
 Street.prototype.draw = function() {

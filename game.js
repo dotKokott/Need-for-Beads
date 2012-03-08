@@ -22,6 +22,7 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 
 var car;
 var street;
+var gameRunning = false;
 
 function max(num1, num2) {
 	if(num1>num2) return num1;
@@ -59,7 +60,7 @@ PS.Init = function ()
 	
 	car = new Car();
 	street = new Street();
-
+	gameRunning = true;
     PS.Clock(10);
 };
 
@@ -171,9 +172,11 @@ PS.Wheel = function (dir)
 PS.Tick = function ()
 {	
 	"use strict";
-	PS.BeadColor(PS.ALL, PS.ALL, 0xC79236);
-	
-	street.update();
-	street.draw();
-	car.draw();
+	if(gameRunning)
+	{
+		PS.BeadColor(PS.ALL, PS.ALL, 0xC79236);	
+		street.update();
+		street.draw();
+		car.draw();
+	}
 };
