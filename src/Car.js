@@ -37,8 +37,8 @@ Car.prototype.handleKey = function(key) {
 				PS.AudioPlay("fx_bang");
 			}
 		}
-		if(key == PS.ARROW_UP) this.y--;
-		if(key == PS.ARROW_DOWN) this.y++;
+		if(key == PS.ARROW_UP && this.y -1 > 0) this.y--;
+		if(key == PS.ARROW_DOWN && this.y + 2 < 16) this.y++;
 	}
 };
 
