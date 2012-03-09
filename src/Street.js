@@ -30,9 +30,10 @@ Street.prototype.update = function() {
 	}
 
     if(checkCollisionWith(car.x,car.y, "wall") || checkCollisionWith(car.x, car.y, "obstacle")) 
-	{	gameRunning = false;
-		alert("Crash! Your score: " + car.score.toString());
-        PS.Init();
+	{	
+        car.alive = false;
+        PS.AudioPlay("fx_bomb2");        
+        gameRunning = false;
 	}
 };
 

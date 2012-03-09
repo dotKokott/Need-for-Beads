@@ -74,7 +74,10 @@ PS.Init = function ()
 	PS.GridBGColor(0xC79236);
 	PS.BeadFlash(PS.ALL, PS.ALL, false);
 	PS.BeadBorderWidth (PS.ALL, PS.ALL, 0);
-	
+
+	PS.AudioLoad("fx_bang");
+	PS.AudioLoad("fx_bomb2");
+
 	car = new Car();
 	street = new Street();
 	gameRunning = true;
@@ -149,6 +152,10 @@ PS.Leave = function (x, y, data)
 PS.KeyDown = function (key, shift, ctrl)
 {
 	"use strict";
+	if(!gameRunning && key == 13)
+	{
+		PS.Init();		
+	}
 	car.handleKey(key);
 	// Put code here for when a key is pressed	
 };
