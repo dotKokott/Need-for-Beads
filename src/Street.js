@@ -8,6 +8,14 @@ function Street () {
     this.builder = new StreetBuilder(this);
 
     this.streetData = new Array();
+
+    //Initial start street
+    for(var i = 0;i < 16;i++)
+    {
+        var part = new StreetPart(this, 5, 5);
+        this.streetData.splice(0,0, part);
+    }
+
     this.builder.fillStraightStreet(15,5,5);
 };
 
